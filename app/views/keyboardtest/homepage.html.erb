@@ -4,32 +4,6 @@
 
 <body>
 
-<div class="container">
-
-  <div id="display">
-    00:00:00
-  </div>
-
-  <div class="buttons">
-    <button id="startStop" onclick="startStop()">Start</button> <button id="reset" onclick="reset()">Reset</button>
-  </div>
-
-</div>
-<div class="container">
-
-  <div >
-    <input id="inputId" type="text" onkeyup="onInputChanged()" onclick="onInputSelected()">
-
-  </div>
-
-  <div>
-    <label id=wordsShow>
-      hola
-    </label>
-  </div>
-
-</div>
-
 <script>
     //Define vars to hold time values
     let seconds = 0;
@@ -131,13 +105,37 @@
             counter++;
             console.log(textValue);
             document.getElementById("wordsShow").innerHTML = words[counter];
-
         }
-
-
     }
 
 </script>
+
+
+<div class="mainPage">
+    <div class="workSpace">
+        <div class="container">
+            <div id="display">
+                00:00:00
+            </div>
+            <div class="buttons">
+                <button id="startStop" onclick="startStop()">Start</button> <button id="reset" onclick="reset()">Reset</button>
+            </div>
+            </div>
+            <div class="container">
+            <div >
+                <input id="inputId" type="text" onkeyup="onInputChanged()" onclick="onInputSelected()">
+
+            </div>
+            <div>
+                <label id=wordsShow>
+                hola
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 </body>
 
