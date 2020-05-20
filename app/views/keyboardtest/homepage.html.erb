@@ -128,7 +128,12 @@
 
 <script>
     function onInputSelected(){
-        startStop();
+        if(status === "stopped"){
+
+            startStop();
+
+        }
+
     }
     function onInputChanged(){
 
