@@ -18,13 +18,13 @@
 <div class="container">
 
   <div >
-    <input type="text" onchange="onInputChanged()" onclick="onInputSelected()">
+    <input id="inputId" type="text" onkeyup="onInputChanged()" onclick="onInputSelected()">
 
   </div>
 
   <div>
     <label id=wordsShow>
-      Palabras pulentas
+      hola
     </label>
   </div>
 
@@ -113,6 +113,7 @@
 <script>
     var words=["hola", "como", "estas"]
     let counter = 0;
+    var textValue = document.getElementById("inputId").value;
     //Function to start the test when the input field is selected
     function onInputSelected(){
         if(status === "stopped"){
@@ -122,10 +123,19 @@
 
 
     function onInputChanged(){
+        var textValue = document.getElementById("inputId").value;
 
-        document.getElementById("wordsShow").innerHTML = words[counter];
-        window.clearInterval(interval)
-        counter++;
+        if(textValue === words[counter]){
+            document.getElementById("inputId").value = "";
+
+            counter++;
+            console.log(textValue);
+            document.getElementById("wordsShow").innerHTML = words[counter];
+            window.clearInterval(interval)
+
+        }
+
+
     }
 
 </script>
