@@ -15,7 +15,22 @@
   </div>
 
 </div>
-<SCRIPT>
+<div class="container">
+
+  <div >
+    <input type="text" onchange="onInputChanged()" onclick="onInputSelected()">
+
+  </div>
+
+  <div>
+    <label id=wordsShow>
+      Palabras pulentas
+    </label>
+  </div>
+
+</div>
+
+<script>
     //Define vars to hold time values
     let seconds = 0;
     let minutes = 0;
@@ -109,7 +124,16 @@
         document.getElementById("startStop").innerHTML = "Start";
 
     }
-</SCRIPT>
+</script>
+
+<script>
+    function onInputSelected(){
+        startStop();
+    }
+    function onInputChanged(){
+
+    }
+</script>
 
 </body>
 
