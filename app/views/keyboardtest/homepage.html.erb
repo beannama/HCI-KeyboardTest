@@ -4,6 +4,38 @@
 
 <body>
 
+<div class="mainPage">
+    <div class="workSpace">
+        <div class="container">
+            <div id="display">
+                00:00:00
+            </div>
+
+            <div class="buttons">
+                <button id="startStop" onclick="startStop()">Start</button> <button id="reset" onclick="reset()">Reset</button>
+            </div>
+        </div>
+        <div class="container">
+            <div >
+                <input id="inputId" type="text" onkeyup="onInputChanged()" onclick="onInputSelected()">
+            </div>
+            <div>
+                <label id=wordsShow>
+                hola
+                </label>
+            </div>
+            <div class="counters">
+                <div>
+                    <label>OK counter: </label> <label id="okWordsLabel"> </label>
+                </div>
+                <div>
+                    <label>Error counter: </label> <label id="errorWordsLabel"> </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     //Define vars to hold time values
     let seconds = 0;
@@ -58,6 +90,7 @@
         //Display updated time values to user
         document.getElementById("display").innerHTML = displayHours + ":" + displayMinutes + ":" + displaySeconds;
 
+
     }
 
     function startStop(){
@@ -86,8 +119,12 @@
 </script>
 <script>
     var words=["hola", "como", "estas"]
-    let counter = 0;
+    let okWords = 0;
+    let errorWords = 0;
+
     var textValue = document.getElementById("inputId").value;
+
+
     //Function to start the test when the input field is selected
     function onInputSelected(){
         if(status === "stopped"){
@@ -95,45 +132,50 @@
         }
     }
 
+    function AcceptWord(){
+        console.log("acertaste");
+
+        document.getElementById("inputId").value = "";
+        CheckIfLastWord();
+
+        okWords++;
+        document.getElementById("wordsShow").innerHTML = words[okWords];
+
+    }
+
+    function CheckIfLastWord(){
+        if (okWords === words.length){
+
+        }
+    }
+
+    function RejectWord(){
+        console.log("fallaste");
+        errorWords++;
+
+    }
 
     function onInputChanged(){
-        var textValue = document.getElementById("inputId").value;
+        textValue = document.getElementById("inputId").value;
 
-        if(textValue === words[counter]){
-            document.getElementById("inputId").value = "";
-
-            counter++;
-            console.log(textValue);
-            document.getElementById("wordsShow").innerHTML = words[counter];
+        if(textValue.length === words[okWords].length){
+            if(textValue === words[okWords]){
+                AcceptWord();
+            }
+            else{
+                RejectWord();
+            }
         }
+        document.getElementById("okWordsLabel").innerHTML = okWords.toString();
+        document.getElementById("errorWordsLabel").innerHTML = errorWords.toString();
+
+
     }
 
 </script>
 
 
-<div class="mainPage">
-    <div class="workSpace">
-        <div class="container">
-            <div id="display">
-                00:00:00
-            </div>
-            <div class="buttons">
-                <button id="startStop" onclick="startStop()">Start</button> <button id="reset" onclick="reset()">Reset</button>
-            </div>
-            </div>
-            <div class="container">
-            <div >
-                <input id="inputId" type="text" onkeyup="onInputChanged()" onclick="onInputSelected()">
 
-            </div>
-            <div>
-                <label id=wordsShow>
-                hola
-                </label>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
