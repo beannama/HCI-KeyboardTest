@@ -32,8 +32,16 @@
                     <label>Error counter: </label> <label id="errorWordsLabel"> </label>
                 </div>
             </div>
+            <div class="feedback">
+                <div>
+                    <label id="feedbackLabel"></label>
+                </div>
+            </div>
         </div>
+        
     </div>
+    
+  </div>
 </div>
 
 <script>
@@ -140,6 +148,7 @@
 
         okWords++;
         document.getElementById("wordsShow").innerHTML = words[okWords];
+        document.getElementById("feedbackLabel").innerHTML = "Acertaste!";
 
     }
 
@@ -153,6 +162,7 @@
         console.log("fallaste");
         errorWords++;
 
+        document.getElementById("feedbackLabel").innerHTML = "Fallaste";
     }
 
     function onInputChanged(){
