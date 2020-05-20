@@ -112,8 +112,12 @@
 </script>
 <script>
     var words=["hola", "como", "estas"]
-    let counter = 0;
+    let okWords = 0;
+    let errorWords = 0;
+
     var textValue = document.getElementById("inputId").value;
+
+
     //Function to start the test when the input field is selected
     function onInputSelected(){
         if(status === "stopped"){
@@ -121,20 +125,31 @@
         }
     }
 
+    function AcceptWord(){
+        console.log("acertaste");
+
+        document.getElementById("inputId").value = "";
+        okWords++;
+        document.getElementById("wordsShow").innerHTML = words[okWords];
+    }
+
+    function RejectWord(){
+        console.log("fallaste");
+
+
+    }
 
     function onInputChanged(){
-        var textValue = document.getElementById("inputId").value;
+        textValue = document.getElementById("inputId").value;
 
-        if(textValue === words[counter]){
-            document.getElementById("inputId").value = "";
-
-            counter++;
-            console.log(textValue);
-            document.getElementById("wordsShow").innerHTML = words[counter];
-
+        if(textValue.length === words[okWords].length){
+            if(textValue === words[okWords]){
+                AcceptWord();
+            }
+            else{
+                RejectWord();
+            }
         }
-
-
     }
 
 </script>
