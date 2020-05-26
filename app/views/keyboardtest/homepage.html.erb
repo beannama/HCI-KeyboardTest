@@ -143,18 +143,23 @@
     function AcceptWord(){
         console.log("acertaste");
 
+
         document.getElementById("inputId").value = "";
-        CheckIfLastWord();
 
         okWords++;
         document.getElementById("wordsShow").innerHTML = words[okWords];
         document.getElementById("feedbackLabel").innerHTML = "Acertaste!";
+        CheckIfLastWord();
 
     }
 
     function CheckIfLastWord(){
-        if (okWords === words.length){
 
+        if (okWords === words.length){
+            document.getElementById("feedbackLabel").innerHTML = "Finalizaste";
+            document.getElementById("wordsShow").innerHTML = "";
+
+            startStop();
         }
     }
 
@@ -178,6 +183,7 @@
         }
         document.getElementById("okWordsLabel").innerHTML = okWords.toString();
         document.getElementById("errorWordsLabel").innerHTML = errorWords.toString();
+
 
 
     }
