@@ -174,7 +174,7 @@
         textValue = document.getElementById("inputId").value;
 
         if(textValue.length === words[okWords].length){
-            if(textValue === words[okWords]){
+            if(textValue.toLowerCase() === words[okWords].toLowerCase()){
                 AcceptWord();
             }
             else{
