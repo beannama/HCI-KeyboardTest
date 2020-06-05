@@ -178,6 +178,8 @@
         }
 
         function onInputChanged(){
+
+
             textValue = document.getElementById("inputId").value;
             let lengthText = textValue.length;
             let testWord = document.getElementById("wordsShow").innerHTML;
@@ -192,7 +194,9 @@
                     RejectWord();
                 }
             }
-
+            if(textValue===testWord){
+                document.getElementById("feedbackLabel").innerHTML = "";
+            }
 
             if(textValue!==testWord){
                 RejectWord()
@@ -200,6 +204,7 @@
 
             document.getElementById("okWordsLabel").innerHTML = okWords.toString();
             document.getElementById("errorWordsLabel").innerHTML = errorWords.toString();
+
         }
 
     </script>
