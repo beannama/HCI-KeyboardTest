@@ -169,9 +169,11 @@
 
         function RejectWord(){
             console.log("fallaste");
-            errorWords++;
-
             document.getElementById("feedbackLabel").innerHTML = "Fallaste";
+
+            if(document.getElementById("feedbackLabel").innerHTML !== "Fallaste"){
+                errorWords++;
+            }
         }
 
         function onInputChanged(){
