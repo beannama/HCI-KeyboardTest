@@ -176,6 +176,10 @@
 
         function onInputChanged(){
             textValue = document.getElementById("inputId").value;
+            let lengthText = textValue.length;
+            let testWord = document.getElementById("wordsShow").innerHTML;
+
+            testWord = testWord.substring(0, lengthText)
             
             if(textValue.length === words[okWords].length){
                 if(textValue.toLowerCase() === words[okWords].toLowerCase()){
@@ -186,7 +190,10 @@
                 }
             }
 
-          
+
+            if(textValue!==testWord){
+                RejectWord()
+            }
 
 
             document.getElementById("okWordsLabel").innerHTML = okWords.toString();
