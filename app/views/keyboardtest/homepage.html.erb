@@ -169,9 +169,10 @@
 
         function RejectWord(){
             console.log("fallaste");
-            document.getElementById("feedbackLabel").innerHTML = "Fallaste";
+
 
             if(document.getElementById("feedbackLabel").innerHTML !== "Fallaste"){
+                document.getElementById("feedbackLabel").innerHTML = "Fallaste";
                 errorWords++;
             }
         }
@@ -196,7 +197,6 @@
             if(textValue!==testWord){
                 RejectWord()
             }
-
 
             document.getElementById("okWordsLabel").innerHTML = okWords.toString();
             document.getElementById("errorWordsLabel").innerHTML = errorWords.toString();
