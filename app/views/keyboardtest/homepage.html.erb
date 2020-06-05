@@ -4,207 +4,197 @@
 
 <body>
 
-<div class="mainPage">
-    <div class="workSpace">
-        <div class="container">
-            <div id="display">
-                00:00:00
-            </div>
+    <div class="mainPage">
+        <div class="workSpace">
+            <div class="container">
+                <div id="display">
+                    00:00:00
+                </div>
 
-            <div class="buttons">
-                <button id="startStop" onclick="startStop()">Start</button> <button id="reset" onclick="reset()">Reset</button>
-            </div>
-        </div>
-        <div class="container">
-            <div >
-                <input id="inputId" type="text" onkeyup="onInputChanged()" onclick="onInputSelected()">
-            </div>
-            <div>
-                <label id=wordsShow>hola</label>    <label id=wordsShow2> </label>
-            </div>
-            <div class="counters">
-                <div>
-                    <label>OK counter: </label> <label id="okWordsLabel"> </label>
-                </div>
-                <div>
-                    <label>Error counter: </label> <label id="errorWordsLabel"> </label>
+                <div class="buttons">
+                    <button id="startStop" onclick="startStop()">Start</button> <button id="reset" onclick="reset()">Reset</button>
                 </div>
             </div>
-            <div class="feedback">
+            <div class="container">
+                <div >
+                    <input id="inputId" type="text" onkeyup="onInputChanged()" onclick="onInputSelected()">
+                </div>
                 <div>
-                    <label id="feedbackLabel"></label>
+                    <label id=wordsShow>hola</label>    <label id=wordsShow2> </label>
+                </div>
+                <div class="counters">
+                    <div>
+                        <label>OK counter: </label> <label id="okWordsLabel"> </label>
+                    </div>
+                    <div>
+                        <label>Error counter: </label> <label id="errorWordsLabel"> </label>
+                    </div>
+                </div>
+                <div class="feedback">
+                    <div>
+                        <label id="feedbackLabel"></label>
+                    </div>
                 </div>
             </div>
+            
         </div>
         
     </div>
-    
-  </div>
-</div>
+    </div>
 
-<script>
-    //Define vars to hold time values
-    let seconds = 0;
-    let minutes = 0;
-    let hours = 0;
+    <script>
+        //Define vars to hold time values
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
 
-    //Define vars to hold "display" value
-    let displaySeconds = 0;
-    let displayMinutes = 0;
-    let displayHours = 0;
+        //Define vars to hold "display" value
+        let displaySeconds = 0;
+        let displayMinutes = 0;
+        let displayHours = 0;
 
-    //Define var to hold setInterval() function
-    let interval = null;
+        //Define var to hold setInterval() function
+        let interval = null;
 
-    //Define var to hold stopwatch status
-    let status = "stopped";
+        //Define var to hold stopwatch status
+        let status = "stopped";
 
-    //Stopwatch function (logic to determine when to increment next value, etc.)
-    function stopWatch(){
-        seconds++;
-        //Logic to determine when to increment next value
-        if(seconds / 60 === 1){
-            seconds = 0;
-            minutes++;
-            if(minutes / 60 === 1){
-                minutes = 0;
-                hours++;
+        //Stopwatch function (logic to determine when to increment next value, etc.)
+        function stopWatch(){
+            seconds++;
+            //Logic to determine when to increment next value
+            if(seconds / 60 === 1){
+                seconds = 0;
+                minutes++;
+                if(minutes / 60 === 1){
+                    minutes = 0;
+                    hours++;
+                }
             }
-        }
-        //If seconds/minutes/hours are only one digit, add a leading 0 to the value
-        if(seconds < 10){
-            displaySeconds = "0" + seconds.toString();
-        }
-        else{
-            displaySeconds = seconds;
-        }
-
-        if(minutes < 10){
-            displayMinutes = "0" + minutes.toString();
-        }
-        else{
-            displayMinutes = minutes;
-        }
-
-        if(hours < 10){
-            displayHours = "0" + hours.toString();
-        }
-        else{
-            displayHours = hours;
-        }
-
-        //Display updated time values to user
-        document.getElementById("display").innerHTML = displayHours + ":" + displayMinutes + ":" + displaySeconds;
-
-
-    }
-
-    function startStop(){
-        if(status === "stopped"){
-            //Start the stopwatch (by calling the setInterval() function)
-            interval = window.setInterval(stopWatch, 1000);
-            document.getElementById("startStop").innerHTML = "Stop";
-            status = "started";
-        }
-        else{
-            window.clearInterval(interval);
-            document.getElementById("startStop").innerHTML = "Start";
-            status = "stopped";
-        }
-    }
-
-    //Function to reset the stopwatch
-    function reset(){
-        window.clearInterval(interval);
-        seconds = 0;
-        minutes = 0;
-        hours = 0;
-        document.getElementById("display").innerHTML = "00:00:00";
-        document.getElementById("startStop").innerHTML = "Start";
-    }
-</script>
-<script>
-    var words=["hola", "como", "estas","este","hermoso","dia","de","invierno","escribiendo","este","buen","mensaje","para","pasar","el","rato"]
-    let okWords = 0;
-    let errorWords = 0;
-
-    var textValue = document.getElementById("inputId").value;
-
-
-    //Function to start the test when the input field is selected
-    function onInputSelected(){
-        if(status === "stopped"){
-            startStop();
-        }
-    }
-
-    function AcceptWord(){
-        console.log("acertaste");
-
-
-        document.getElementById("inputId").value = "";
-
-        okWords++;
-        document.getElementById("wordsShow").innerHTML = words[okWords];
-        if(words[okWords+1] != null){
-            document.getElementById("wordsShow2").innerHTML = words[okWords+1];
-        }
-        else if(words[okWords+1] == null){
-            document.getElementById("wordsShow2").innerHTML = " ";
-        }
-
-        document.getElementById("feedbackLabel").innerHTML = "Acertaste!";
-        CheckIfLastWord();
-
-    }
-
-    function CheckIfLastWord(){
-
-        if (okWords === words.length){
-            document.getElementById("feedbackLabel").innerHTML = "Finalizaste";
-            document.getElementById("wordsShow").innerHTML = "";
-            startStop();
-        }
-    }
-
-    function RejectWord(){
-        console.log("fallaste");
-        errorWords++;
-
-        document.getElementById("feedbackLabel").innerHTML = "Fallaste";
-    }
-
-    function onInputChanged(){
-        textValue = document.getElementById("inputId").value;
-        lengthText = textValue.length;
-        testWord = document.getElementById("wordsShow").innerHTML;
-        testWord = testWord[0...lengthText]
-
-        if(textValue.length === words[okWords].length){
-            if(textValue.toLowerCase() === words[okWords].toLowerCase()){
-                AcceptWord();
+            //If seconds/minutes/hours are only one digit, add a leading 0 to the value
+            if(seconds < 10){
+                displaySeconds = "0" + seconds.toString();
             }
             else{
-                RejectWord();
+                displaySeconds = seconds;
+            }
+
+            if(minutes < 10){
+                displayMinutes = "0" + minutes.toString();
+            }
+            else{
+                displayMinutes = minutes;
+            }
+
+            if(hours < 10){
+                displayHours = "0" + hours.toString();
+            }
+            else{
+                displayHours = hours;
+            }
+
+            //Display updated time values to user
+            document.getElementById("display").innerHTML = displayHours + ":" + displayMinutes + ":" + displaySeconds;
+
+
+        }
+
+        function startStop(){
+            if(status === "stopped"){
+                //Start the stopwatch (by calling the setInterval() function)
+                interval = window.setInterval(stopWatch, 1000);
+                document.getElementById("startStop").innerHTML = "Stop";
+                status = "started";
+            }
+            else{
+                window.clearInterval(interval);
+                document.getElementById("startStop").innerHTML = "Start";
+                status = "stopped";
             }
         }
 
-        if(textValue!==testWord){
-          RejectWord()
+        //Function to reset the stopwatch
+        function reset(){
+            window.clearInterval(interval);
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+            document.getElementById("display").innerHTML = "00:00:00";
+            document.getElementById("startStop").innerHTML = "Start";
+        }
+    </script>
+    <script>
+        var words=["hola", "como", "estas","este","hermoso","dia","de","invierno","escribiendo","este","buen","mensaje","para","pasar","el","rato"]
+        let okWords = 0;
+        let errorWords = 0;
+
+        var textValue = document.getElementById("inputId").value;
+
+
+        //Function to start the test when the input field is selected
+        function onInputSelected(){
+            if(status === "stopped"){
+                startStop();
+            }
         }
 
-
-        document.getElementById("okWordsLabel").innerHTML = okWords.toString();
-        document.getElementById("errorWordsLabel").innerHTML = errorWords.toString();
-    }
-
-</script>
+        function AcceptWord(){
+            console.log("acertaste");
 
 
+            document.getElementById("inputId").value = "";
+
+            okWords++;
+            document.getElementById("wordsShow").innerHTML = words[okWords];
+            if(words[okWords+1] != null){
+                document.getElementById("wordsShow2").innerHTML = words[okWords+1];
+            }
+            else if(words[okWords+1] == null){
+                document.getElementById("wordsShow2").innerHTML = " ";
+            }
+
+            document.getElementById("feedbackLabel").innerHTML = "Acertaste!";
+            CheckIfLastWord();
+
+        }
+
+        function CheckIfLastWord(){
+
+            if (okWords === words.length){
+                document.getElementById("feedbackLabel").innerHTML = "Finalizaste";
+                document.getElementById("wordsShow").innerHTML = "";
+                startStop();
+            }
+        }
+
+        function RejectWord(){
+            console.log("fallaste");
+            errorWords++;
+
+            document.getElementById("feedbackLabel").innerHTML = "Fallaste";
+        }
+
+        function onInputChanged(){
+            textValue = document.getElementById("inputId").value;
+            
+            if(textValue.length === words[okWords].length){
+                if(textValue.toLowerCase() === words[okWords].toLowerCase()){
+                    AcceptWord();
+                }
+                else{
+                    RejectWord();
+                }
+            }
+
+          
 
 
+            document.getElementById("okWordsLabel").innerHTML = okWords.toString();
+            document.getElementById("errorWordsLabel").innerHTML = errorWords.toString();
+        }
 
-
+    </script>
+    
 </body>
 
 
