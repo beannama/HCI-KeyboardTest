@@ -144,6 +144,8 @@
     }
 
     //Typing test
+    var isFinished = false;
+
     var words=["hola", "como", "estas", "este", "hermoso", "dia", "de", "invierno", "escribiendo", "este", "buen", "mensaje", "para", "pasar", "el", "rato"]
     let okWords = 0;
     let errorWords = 0;
@@ -153,8 +155,10 @@
 
     //Function to start the test when the input field is selected
     function onInputSelected(){
-        if(status === "stopped"){
-            startStop();
+        if(!isFinished){
+            if(status === "stopped"){
+                startStop();
+            }
         }
     }
 
@@ -172,6 +176,7 @@
             document.getElementById("wordsShow").innerHTML = "";
             document.getElementById("wordsList").innerHTML = "";
             document.getElementById("feedbackLabel").innerHTML = "Finalizaste";
+            isFinished = true;
         }
     }
 
@@ -184,26 +189,32 @@
     }
 
     function onInputChanged(){
-        textValue = document.getElementById("inputId").value;
-        let lengthText = textValue.length;
-        let testWord = document.getElementById("wordsShow").innerHTML;
+        if(!isFinished){
+            textValue = document.getElementById("inputId").value;
+            let lengthText = textValue.length;
+            let testWord = document.getElementById("wordsShow").innerHTML;
 
-        testWord = testWord.substring(0, lengthText)
-        if(textValue===testWord){
-            document.getElementById("feedbackLabel").innerHTML = "";
-        }
-        if(textValue!==testWord){
-            RejectWord()
-        }
-
-        if(textValue.length === words[okWords].length){
-            if(textValue.toLowerCase() === words[okWords].toLowerCase()){
-                AcceptWord();
+            testWord = testWord.substring(0, lengthText)
+            if(textValue===testWord){
+                document.getElementById("feedbackLabel").innerHTML = "";
             }
+            if(textValue!==testWord){
+                RejectWord()
+            }
+
+            if(textValue.length === words[okWords].length){
+                if(textValue.toLowerCase() === words[okWords].toLowerCase()){
+                    AcceptWord();
+                }
+            }
+
+            document.getElementById("okWordsLabel").innerHTML = okWords.toString();
+            document.getElementById("errorWordsLabel").innerHTML = errorWords.toString();
+        }
+        else{
+
         }
 
-        document.getElementById("okWordsLabel").innerHTML = okWords.toString();
-        document.getElementById("errorWordsLabel").innerHTML = errorWords.toString();
     }
 </script>
 </body>
